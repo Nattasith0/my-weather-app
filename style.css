@@ -9,7 +9,7 @@ body {
     margin: 0;
 }
 .app-container {
-    background: #003554;
+    background: linear-gradient(to bottom, #008c10, #50c7c7);
     padding: 2rem;
     border-radius: 1rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);

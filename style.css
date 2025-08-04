@@ -182,3 +182,26 @@ body.mild-day .weather-info .temp {
 body.night .weather-info .temp {
   color: #eeeeee;
 }
+
+
+.history-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.history-btn {
+  background: #1c1c2e;
+  color: #e0e1dd;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.history-btn:hover {
+  background: #00a6fb;
+  color: #fff;
+}

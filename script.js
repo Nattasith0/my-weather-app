@@ -69,7 +69,7 @@ function applyWeatherTheme(data) {
     document.body.classList.add(themeClass);
 }
 function displayWeather(data) {
-    applyWeatherTheme(data); 
+    applyWeatherTheme(data);
 
     const { name, main, weather } = data;
     const { temp, humidity } = main;
@@ -137,11 +137,76 @@ async function getWeather(city) {
         }
         const data = await response.json();
         displayWeather(data);
+        displayWeather(data);
+        saveToHistory(city);
+        getForecast(city);
+
 
         getForecast(city);
 
     } catch (error) {
         weatherInfoContainer.innerHTML = `<p class="error">${error.message}</p>`;
-        document.getElementById('forecast-container').innerHTML = ''; 
+        document.getElementById('forecast-container').innerHTML = '';
     }
 }
+
+localStorage.setItem('lastCity', city);
+document.addEventListener('DOMContentLoaded', () => {
+    const lastCity = localStorage.getItem('lastCity');
+    if (lastCity) {
+        getWeather(lastCity);
+    }
+});
+
+function saveToHistory(city) {
+    let history = JSON.parse(localStorage.getItem('weatherHistory')) || [];
+
+    // ลบรายการที่ซ้ำ
+    history = history.filter(item => item !== city);
+
+    // ใส่ไว้หน้าสุด
+    history.unshift(city);
+
+    // จำกัดไว้ไม่เกิน 5 เมือง
+    history = history.slice(0, 5);
+
+    localStorage.setItem('weatherHistory', JSON.stringify(history));
+    renderHistoryButtons();
+}
+
+function renderHistoryButtons() {
+    const history = JSON.parse(localStorage.getItem('weatherHistory')) || [];
+    const container = document.getElementById('history-container');
+
+    if (!container) return;
+
+    if (history.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+
+    container.innerHTML = `
+    <h3>ประวัติการค้นหา</h3>
+    <div class="history-buttons">
+      ${history.map(city => `<button class="history-btn">${city}</button>`).join('')}
+    </div>
+  `;
+
+    // เพิ่ม event ให้ปุ่ม
+    const buttons = container.querySelectorAll('.history-btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            getWeather(btn.textContent);
+        });
+    });
+}
+
+// เรียกตอนโหลดเว็บ
+document.addEventListener('DOMContentLoaded', () => {
+    renderHistoryButtons();
+
+    const last = JSON.parse(localStorage.getItem('weatherHistory'))?.[0];
+    if (last) {
+        getWeather(last);
+    }
+});

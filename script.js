@@ -161,13 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function saveToHistory(city) {
     let history = JSON.parse(localStorage.getItem('weatherHistory')) || [];
 
-    // ลบรายการที่ซ้ำ
     history = history.filter(item => item !== city);
 
-    // ใส่ไว้หน้าสุด
     history.unshift(city);
 
-    // จำกัดไว้ไม่เกิน 5 เมือง
     history = history.slice(0, 5);
 
     localStorage.setItem('weatherHistory', JSON.stringify(history));
@@ -192,7 +189,6 @@ function renderHistoryButtons() {
     </div>
   `;
 
-    // เพิ่ม event ให้ปุ่ม
     const buttons = container.querySelectorAll('.history-btn');
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -201,7 +197,6 @@ function renderHistoryButtons() {
     });
 }
 
-// เรียกตอนโหลดเว็บ
 document.addEventListener('DOMContentLoaded', () => {
     renderHistoryButtons();
 

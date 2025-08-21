@@ -12,19 +12,25 @@ body {
 }
 
 .app-container {
-  background: linear-gradient(to bottom, #1c2541, #3a506b);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
   padding: 2rem;
   border-radius: 1.5rem;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   width: 100%;
   max-width: 480px;
   text-align: center;
+  transition: background 0.6s ease, color 0.6s ease;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #00a6fb;
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
 }
 
 #search-form {
@@ -70,8 +76,9 @@ h1 {
 }
 
 .weather-info img {
-  width: 80px;
+  width: 100px;
   margin: 1rem 0;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
 }
 
 .weather-info .temp {
@@ -89,13 +96,19 @@ h1 {
 }
 
 .forecast-card {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 1rem;
   padding: 1rem;
-  width: 110px;
+  width: 120px;
   text-align: center;
   color: #fff;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.forecast-card:hover {
+  transform: translateY(-6px) scale(1.05);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .forecast-date {
@@ -196,12 +209,23 @@ body.night .weather-info .temp {
   color: #e0e1dd;
   border: none;
   border-radius: 0.75rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.1rem;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .history-btn:hover {
   background: #00a6fb;
   color: #fff;
+}
+
+@media (max-width: 500px) {
+  .forecast-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  .forecast-card {
+    width: 100%;
+    max-width: 250px;
+  }
 }
